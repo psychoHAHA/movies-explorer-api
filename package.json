@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon --experimental-modules --es-module-specifier-resolution=node --trace-warnings --inspect -- app.js",
-    "lint": "npx lint",
+    "dev": "nodemon app.js",
+    "lint": "npx eslint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kirill Zernov",
@@ -25,6 +25,7 @@
     "dotenv": "^16.3.2",
     "express": "^4.18.2",
     "express-winston": "^4.2.0",
+    "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.1.0",
     "validator": "^13.11.0",
