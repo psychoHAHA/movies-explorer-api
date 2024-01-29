@@ -1,38 +1,35 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const { errors } = require('celebrate')
-const bodyParser = require('body-parser')
-const cors = require('cors')
+const express = require('express');
+const helmet = require('helmet');
+const mongoose = require('mongoose');
+const { errors } = require('celebrate');
+const cors = require('cors');
 const router = require('./routes/index');
-const { errorLogger, requestLogger } = require('./middlewares/logger')
-const { errorHandle } = require('./middlewares/errorHandler')
-const routes = require('./routes')
-const router = require('./routes')
+const { errorLogger, requestLogger } = require('./middlewares/logger');
+const { errorHandle } = require('./middlewares/errorHandler');
 
-const { PORT = 3000, MONGO_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } =
-  process.env
+const { PORT = 3000, MONGO_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
 
-const app = express()
+const app = express();
 
-app.use(requestLogger)
+app.use(helmet());
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(requestLogger);
 
-app.use(router)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(cors())
+app.use(router);
 
-app.use('/', routes)
+app.use(cors());
 
-app.use(errors())
+app.use(errors());
 
-app.use(errorLogger)
+app.use(errorLogger);
 
-app.use(errorHandle)
+app.use(errorHandle);
 
-mongoose.connect(MONGO_URL)
+mongoose.connect(MONGO_URL);
 
 app.listen(PORT, () => {
-  console.log(`listener on port ${PORT}`)
-})
+  console.log(`listener on port ${PORT}`);
+});
