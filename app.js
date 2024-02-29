@@ -1,9 +1,9 @@
 const express = require('express');
-// const cors = require('./middlewares/cors');
-const cors = require('cors');
+const { errors } = require('celebrate');
+const cors = require('./middlewares/cors');
+// const cors = require('cors');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
-const { errors } = require('celebrate');
 const router = require('./routes/index');
 const { errorLogger, requestLogger } = require('./middlewares/logger');
 const { errorHandle } = require('./middlewares/errorHandler');
@@ -20,7 +20,7 @@ app.use(helmet());
 //   maxAge: 30,
 // }));
 
-app.use(cors());
+app.use(cors);
 
 app.use(requestLogger);
 
