@@ -15,7 +15,7 @@ const app = express();
 app.use(helmet());
 const options = {
   origin: [
-    '[undefined](http://localhost:5173)',
+    '[undefined](http://localhost:3000)',
     'https://api.psychodelic.movie.nomoredomainsmonster.ru'
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],  
