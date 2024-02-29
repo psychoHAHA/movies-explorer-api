@@ -1,7 +1,7 @@
 const express = require('express');
 const { errors } = require('celebrate');
-const cors = require('./middlewares/cors');
-// const cors = require('cors');
+// const cors = require('./middlewares/cors');
+const cors = require('cors');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const router = require('./routes/index');
@@ -13,14 +13,19 @@ const { PORT = 3000, MONGO_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = proc
 const app = express();
 
 app.use(helmet());
+const options = {
+  origin: [
+    '[undefined](http://localhost:5173)',
+    'https://api.psychodelic.movie.nomoredomainsmonster.ru'
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],  
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],  
+  credentials: true,
+};
 
-// app.use(cors({
-//   origin: ['http://localhost:3000', 'https://psychodelic.movie.nomoredomainswork.ru'],
-//   credentials: true,
-//   maxAge: 30,
-// }));
-
-app.use(cors);
+app.use(cors(options));
 
 app.use(requestLogger);
 
