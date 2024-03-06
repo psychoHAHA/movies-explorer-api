@@ -100,7 +100,7 @@ const login = async (req, res, next) => {
       email: userName.email,
     });
 
-    res.status(200).send({ jwt: token });
+    res.status(200).send({ token });
   } catch (error) {
     next(error);
   }

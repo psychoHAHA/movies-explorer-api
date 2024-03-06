@@ -10,7 +10,7 @@ module.exports.validateCreateMovie = celebrate({
     year: Joi.string().required(),
     description: Joi.string().required(),
     image: Joi.string().pattern(new RegExp(URLRegExpression)).required(),
-    trailer: Joi.string().pattern(new RegExp(URLRegExpression)).required(),
+    trailerLink: Joi.string().pattern(new RegExp(URLRegExpression)).required(),
     thumbnail: Joi.string().pattern(new RegExp(URLRegExpression)).required(),
     movieId: Joi.number().required(),
     nameRU: Joi.string().required(),

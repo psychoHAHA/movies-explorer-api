@@ -27,7 +27,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     match: [URLRegExpression, 'Некорректная ссылка'],
   },
-  trailer: {
+  trailerLink: {
     type: String,
     required: true,
     match: [URLRegExpression, 'Некорректная ссылка'],
