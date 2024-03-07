@@ -1,54 +1,55 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const helmet = require('helmet');
+const helmet = require('helmet')
 
-const { errors } = require('celebrate');
+const { errors } = require('celebrate')
 
-const express = require('express');
+const express = require('express')
 
-const cors = require('cors');
+const cors = require('cors')
 
-const router = require('./routes/index');
+const router = require('./routes/index')
 
-const { errorHandle } = require('./middlewares/errorHandler');
-const { errorLogger, requestLogger } = require('./middlewares/logger');
+const { errorHandle } = require('./middlewares/errorHandler')
+const { errorLogger, requestLogger } = require('./middlewares/logger')
 
-const { PORT = 3000, MONGO_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
+const { PORT = 3000, MONGO_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } =
+  process.env
 
-const app = express();
+const app = express()
 
-app.use(cors());
-
-app.use(helmet());
-
-// const corsOptions = {
-//   origin: '*',
+// const options = {
+//   origin: [
+//     '[undefined](http://localhost:3000)',
+//     'https://psychodelic.movie.nomoredomainswork.ru',
+//     'https://psychoHAHA.github.io',
+//   ],
+//   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+//   preflightContinue: false,
+//   optionsSuccessStatus: 204,
+//   allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
 //   credentials: true,
-//   optionSuccessStatus: 200,
-// };
-// app.use(cors({
-//   origin: ['http://localhost:5173', 'https://psychodelic.movie.nomoredomainswork.ru'],
-//   credentials: true,
-//   maxAge: 30,
-// }));
+// }
 
-// app.use(cors(corsOptions));
+app.use(cors())
 
-mongoose.connect(MONGO_URL);
+app.use(helmet())
 
-app.use(requestLogger);
+mongoose.connect(MONGO_URL)
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(requestLogger)
 
-app.use(router);
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-app.use(errors());
+app.use(router)
 
-app.use(errorLogger);
+app.use(errors())
 
-app.use(errorHandle);
+app.use(errorLogger)
+
+app.use(errorHandle)
 
 app.listen(PORT, () => {
-  console.log(`listener on port ${PORT}`);
-});
+  console.log(`listener on port ${PORT}`)
+})
