@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
 
     const validToken = token.replace('Bearer ', '')
 
-    payload = jwt.verify(validToken, process.env.NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret')
+    payload = jwt.verify(validToken, NODE_ENV ? JWT_SECRET : 'dev_secret')
   } catch (error) {
     throw new ErrorAuth('Необходимо пройти авторизацию')
   }
