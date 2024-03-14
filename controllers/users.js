@@ -2,9 +2,6 @@
 const bcrypt = require('bcryptjs')
 const generateToken = require('../utils/jwt')
 const user = require('../models/user')
-const bcrypt = require('bcryptjs');
-const generateToken = require('../utils/jwt');
-const user = require('../models/user');
 
 const ErrorNotFound = require('../errors/errorNotFound');
 const ErrorValidation = require('../errors/errorValidation');
