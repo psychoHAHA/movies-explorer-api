@@ -42,7 +42,7 @@ module.exports = (req, res, next) => {
 
     payload = jwt.verify(validToken, NODE_ENV ? JWT_SECRET : 'dev_secret')
   } catch (error) {
-    throw new ErrorAuth(`Необходимо пройти авторизацию ${validToken}`)
+    throw new ErrorAuth("Необходимо пройти авторизацию")
   }
 
   req.user = payload
