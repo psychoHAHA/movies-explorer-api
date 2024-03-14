@@ -1,4 +1,3 @@
-const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const generateToken = require('../utils/jwt')
 const user = require('../models/user')
@@ -10,41 +9,41 @@ const ErrorAuth = require('../errors/errorAuth')
 
 const MONGO_DUPLICATE_ERROR_CODE = 11000
 
-// const getUsers = async (req, res, next) => {
-//   try {
-//     const userName = await user.findById(req.user._id);
+const getUsers = async (req, res, next) => {
+  try {
+    const userName = await user.findById(req.user._id);
 
-//     if (!userName) {
-//       throw new ErrorNotFound('Пользователь по ID не найден');
-//     }
-//     res.status(200).send(userName);
-//   } catch (error) {
-//     if (error.name === 'ValidationError') {
-//       next(new ErrorValidation('Ошибка валидации полей'));
+    if (!userName) {
+      throw new ErrorNotFound('Пользователь по ID не найден');
+    }
+    res.status(200).send(userName);
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      next(new ErrorValidation('Ошибка валидации полей'));
 
-//       return;
-//     }
+      return;
+    }
 
-//     next(error);
-//   }
-// };
+    next(error);
+  }
+};
 
-const getUsers = (req, res, next) =>
-  user
-    .findById(req.user._id)
-    .orFail()
-    .then((user) => res.send(user))
-    .catch((error) => {
-      if (error instanceof mongoose.Error.DocumentNotFoundError) {
-        return next(new ErrorNotFound('Пользователь не найден'))
-      }
+// const getUsers = (req, res, next) =>
+//   user
+//     .findById(req.user._id)
+//     .orFail()
+//     .then((user) => res.send(user))
+//     .catch((error) => {
+//       if (error instanceof mongoose.Error.DocumentNotFoundError) {
+//         return next(new ErrorNotFound('Пользователь не найден'))
+//       }
 
-      if (error.name === 'ValidationError') {
-        next(new ErrorValidation('Ошибка валидации полей'))
+//       if (error.name === 'ValidationError') {
+//         next(new ErrorValidation('Ошибка валидации полей'))
 
-        return
-      }
-    })
+//         return
+//       }
+//     })
 
 const updateUser = async (req, res, next) => {
   try {
@@ -123,6 +122,30 @@ const login = async (req, res, next) => {
     next(error)
   }
 }
+
+// const login = (req, res, next) => {
+//   const { email, password } = req.body
+//   return user
+//     .findOne({ email })
+//     .select('+password')
+//     .orFail()
+//     .then(async (user) => {
+//       const matched = await bcrypt.compare(String(password), user.password)
+//       if (!matched) {
+//         throw new ErrorValidation('Неправлиьные почта или пароль')
+//       }
+
+//       const token = generateToken({ _id: user._id })
+//       res.send({ token })
+//     })
+//     .catch((error) => {
+//       if (error instanceof mongoose.Error.DocumentNotFoundError) {
+//         return next(new ErrorValidation('Неправлиьные почта или пароль'))
+//       }
+
+//       return Promise.reject(error)
+//     })
+// }
 
 module.exports = {
   getUsers,
