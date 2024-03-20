@@ -2,7 +2,7 @@ const { celebrate, Joi } = require('celebrate')
 
 const { URLRegExpression } = require('../utils/constants')
 
-module.exports.validateCreateMovie = celebrate({
+;(module.exports.validateCreateMovie = celebrate({
   body: Joi.object().keys({
     country: Joi.string().required(),
     director: Joi.string().required(),
@@ -15,11 +15,10 @@ module.exports.validateCreateMovie = celebrate({
     movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
-  })
-}),
-
-module.exports.validateDeleteMovie = celebrate({
-  params: Joi.object().keys({
-    movieId: Joi.string().required().hex().length(24),
   }),
-})
+})),
+  (module.exports.validateDeleteMovie = celebrate({
+    params: Joi.object().keys({
+      movieId: Joi.string().required().hex().length(24),
+    }),
+  }))
