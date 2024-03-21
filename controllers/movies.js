@@ -43,7 +43,7 @@ const deleteMovie = async (req, res, next) => {
     if (!findMovie.owner.equals(userId)) {
       throw new ErrorForbiden('Вы не можете удалить чужой фильм') // если владелец !== id юзера, то отправляем ошибку
     } else {
-      const delMovie = await movie.delete0ne()
+      const delMovie = await movie.deleteOne()
       return res.send(delMovie) // если нашли удаляем ее и отправляем ответ об этом
     }
   } catch (error) {
