@@ -23,13 +23,13 @@ const createMovie = async (req, res, next) => {
     const creatingMovie = await movie.create({ owner, ...req.body })
 
     res.send(creatingMovie)
-} catch (error) {
-  if (error.name === 'ValidationError') {
-    throw new ErrorValidation('Ошибка валидации полей')
-  } else {
-    next(error)
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      throw new ErrorValidation('Ошибка валидации полей')
+    } else {
+      next(error)
+    }
   }
-}
 }
 
 const deleteMovie = async (req, res, next) => {
