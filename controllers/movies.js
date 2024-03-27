@@ -32,6 +32,25 @@ const createMovie = async (req, res, next) => {
   }
 }
 
+// const deleteMovie = async (req, res, next) => {
+//   try {
+//     const userId = await req.user._id // находим id юзера
+//     const newMovieId = await req.params.movieId // находим id фильма
+//     const findMovie = await movie // находим фильм с таким id
+//       .findById(newMovieId)
+//       .orFail(() => new ErrorNotFound('Фильм для удаления не найден'))
+
+//     if (!findMovie.owner.equals(userId)) {
+//       throw new ErrorForbiden('Вы не можете удалить чужой фильм') // если владелец !== id юзера, то отправляем ошибку
+//     } else {
+//       const delMovie = await movie.deleteOne()
+//       return res.send(delMovie) // если нашли удаляем ее и отправляем ответ об этом
+//     }
+//   } catch (error) {
+//     next(error)
+//   }
+// }
+
 const deleteMovie = async (req, res, next) => {
   try {
     const userId = req.user._id // находим id юзера
@@ -50,6 +69,23 @@ const deleteMovie = async (req, res, next) => {
     next(error)
   }
 }
+// const deleteMovie = async (req, res, next) => {
+//   const { movieId } = req.params
+
+//   return movie
+//     .findById(movieId)
+//     .orFail()
+//     .then((film) => {
+//       if (!film.owner.equals(req.user._id)) {
+//         throw new ErrorForbiden('Вы не можете удалить чужой фильм')
+//       }
+//       return movie
+//         .deleteOne()
+//         .orFail()
+//         .then(() => res.send({ message: 'Фильм удалён успешно' }))
+//     })
+//     .catch((error) => next(error))
+// }
 
 module.exports = {
   getMovies,
