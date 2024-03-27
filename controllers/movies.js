@@ -17,19 +17,56 @@ const getMovies = async (req, res, next) => {
   }
 }
 
-const createMovie = async (req, res, next) => {
-  try {
-    const owner = await req.user._id
-    const creatingMovie = await movie.create({ owner, ...req.body })
+// const createMovie = async (req, res, next) => {
+//   try {
+//     const owner = await req.user._id
+//     const creatingMovie = await movie.create({ owner, ...req.body })
 
-    res.send(creatingMovie)
-  } catch (error) {
-    if (error.name === 'ValidationError') {
-      throw new ErrorValidation('Ошибка валидации полей')
-    } else {
-      next(error)
-    }
-  }
+//     res.send(creatingMovie)
+// } catch (error) {
+//   if (error.name === 'ValidationError') {
+//     throw new ErrorValidation('Ошибка валидации полей')
+//   } else {
+//     next(error)
+//   }
+// }
+// }
+
+const createMovie = (req, res, next) => {
+  const {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    thumbnail,
+    nameRU,
+    nameEN,
+    movieId,
+  } = req.body
+  const { _id } = req.users
+  return movie({
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    thumbnail,
+    nameRU,
+    nameEN,
+    movieId,
+    owner: _id,
+  })
+    .save()
+    .then(() => movie.populate(['owner']))
+    .then((film) => res.send(film))
+    .catch((error) => {
+      console.log(error)
+    })
 }
 
 const deleteMovie = async (req, res, next) => {
@@ -51,6 +88,24 @@ const deleteMovie = async (req, res, next) => {
   }
 }
 
+// const deleteMovie = async (req, res, next) => {
+//   try {
+//     const userId = req.user._id // находим id юзера
+//     const newMovieId = req.params.movieId // находим id фильма
+//     const findMovie = await movie // находим фильм с таким id
+//       .findById(newMovieId)
+//       .orFail(() => new ErrorNotFound('Фильм для удаления не найден'))
+
+//     if (!findMovie.owner.equals(userId)) {
+//       throw new ErrorForbiden('Вы не можете удалить чужой фильм') // если владелец !== id юзера, то отправляем ошибку
+//     } else {
+//       const delMovie = await movie.deleteOne()
+//       return res.send(delMovie) // если нашли удаляем ее и отправляем ответ об этом
+//     }
+//   } catch (error) {
+//     next(error)
+//   }
+// }
 // const deleteMovie = async (req, res, next) => {
 //   const { movieId } = req.params
 
