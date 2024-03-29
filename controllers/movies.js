@@ -17,31 +17,19 @@ const getMovies = async (req, res, next) => {
   }
 }
 
-// const createMovie = async (req, res, next) => {
-//   try {
-//     const owner = await req.user._id
-//     const creatingMovie = await movie.create({ owner, ...req.body })
+const createMovie = async (req, res, next) => {
+  try {
+    const owner = req.user._id;
+    const creatingMovie = await movie.create({ owner, ...req.body })
 
-//     res.send(creatingMovie)
-//   } catch (error) {
-//     if (error.name === 'ValidationError') {
-//       throw new ErrorValidation('Ошибка валидации полей')
-//     } else {
-//       next(error)
-//     }
-//   }
-// }
-
-const createMovie = (req, res, next) => {
-  const owner = req.user._id
-
-  movie.create({ owner, ...req.body }).then((film) => res.send(film)).catch((err) => {
-    if (err.name === 'ValidationError') {
+    res.send(creatingMovie)
+  } catch (error) {
+    if (error.name === 'ValidationError') {
       throw new ErrorValidation('Ошибка валидации полей')
     } else {
-      next(err)
+      next(error)
     }
-  })
+  }
 }
 
 const deleteMovie = async (req, res, next) => {
