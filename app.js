@@ -57,7 +57,7 @@ app.use(errors())
 
 app.use(errorLogger)
 
-// app.use(errorHandle)
+app.use(errorHandle)
 
 app.listen(PORT, () => {
   console.log(`listener on port ${PORT}`)
