@@ -19,7 +19,7 @@ const getMovies = async (req, res, next) => {
 
 const createMovie = async (req, res, next) => {
   try {
-    const owner = req.user._id;
+    const owner = req.user._id
     const creatingMovie = await movie.create({ owner, ...req.body })
 
     res.send(creatingMovie)
@@ -54,7 +54,7 @@ const createMovie = async (req, res, next) => {
 const deleteMovie = async (req, res, next) => {
   try {
     const userId = req.user._id // находим id юзера
-    const movieId = req.params // находим id фильма
+    const movieId = req.params.movieId // находим id фильма
     const findMovie = await movie // находим фильм с таким id
       .findById(movieId)
       .orFail(() => new ErrorNotFound('Фильм для удаления не найден'))
@@ -69,8 +69,6 @@ const deleteMovie = async (req, res, next) => {
     next(error)
   }
 }
-
-
 
 module.exports = {
   getMovies,
