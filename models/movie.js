@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 const { URLRegExpression } = require('../utils/constants')
 
 const movieSchema = new mongoose.Schema({
@@ -43,7 +43,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   movieId: {
-    type: Number,
+    type: String,
     required: true,
   },
   nameRU: {
@@ -54,6 +54,6 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-}, {versionKey: false});
+})
 
-module.exports = mongoose.model('movie', movieSchema);
+module.exports = mongoose.model('movie', movieSchema)
