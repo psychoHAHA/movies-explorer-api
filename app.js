@@ -17,18 +17,16 @@ app.use(helmet());
 
 app.use(requestLogger);
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-app.use(router);
+app.use(router)
 
-app.use(errors());
+app.use(errors())
 
-app.use(errorLogger);
+app.use(errorLogger)
 
-// app.use(errorHandle);
-
-mongoose.connect(MONGO_URL);
+// app.use(errorHandle)
 
 app.listen(PORT, () => {
   console.log(`listener on port ${PORT}`);
