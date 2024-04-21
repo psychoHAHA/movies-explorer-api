@@ -36,9 +36,9 @@ const createMovie = async (req, res, next) => {
 const deleteMovie = async (req, res, next) => {
   try {
     const userId = req.user._id; // находим id юзера
-    const movieId = req.params; // находим id фильма
+    const newMovieId = req.params.movieId; // находим id фильма
     const findMovie = await movie // находим фильм с таким id
-      .findById(movieId)
+      .findById(newMovieId)
       .orFail(() => new ErrorNotFound('Фильм для удаления не найден'));
 
     if (!findMovie.owner.equals(userId)) {
