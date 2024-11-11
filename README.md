@@ -1,4 +1,4 @@
-# Бэкенд дипломной работы movies-explorer-api
+# Бэкенд проекта movies-explorer-api
 
 ## Ссылки:
 
